@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto';
+      
+    }
+
+    .menu-container {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .menu-button {
+      font-size: 24px;
+      cursor: pointer;
+      background-color: #3498db;
+      color: #fff;
+      padding: 10px 15px;
+      border-radius: 50%;
+    }
+
+    .navigation-menu {
+      display: none;
+      position: absolute;
+      top: 60px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .nav-button {
+      padding: 10px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+      cursor: pointer;
+    }
+
+    .nav-button:last-child {
+      border-bottom: none;
+    }
+  </style>
+  <title>Draggable Navigation Menu</title>
+</head>
+<body>
+  <div class="menu-container">
+    <div class="menu-button" id="toggle-menu">+</div>
+    <div class="navigation-menu" id="nav-menu">
+      <!-- Add your navigation buttons here -->
+      <div class="nav-button">Home</div>
+      <div class="nav-button">Vision</div>
+      <div class="nav-button">Contact Us</div>
+      <div class="nav-button">About</div>
+      <div class="nav-button">Address</div>
+    </div>
+  </div>
+  <script>
+    document.getElementById('toggle-menu').addEventListener('click', function() {
+      var navMenu = document.getElementById('nav-menu');
+      navMenu.style.display = navMenu.style.display === 'none' ? 'block' : 'none';
+    });
+
+    var isDragging = false;
+    var initialY;
+
+    document.getElementById('nav-menu').addEventListener('mousedown', function(e) {
+      isDragging = true;
+      initialY = e.clientY - document.getElementById('nav-menu').getBoundingClientRect().top;
+    });
+
+    document.addEventListener('mousemove', function(e) {
+      if (isDragging) {
+        var newY = e.clientY - initialY;
+        document.getElementById('nav-menu').style.top = newY + 'px';
+      }
+    });
+
+    document.addEventListener('mouseup', function() {
+      isDragging = false;
+    });
+  </script>
+</body>
+</html>
